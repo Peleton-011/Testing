@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <svg xlmns="http://www.w3.org/2000/svg" version="1.1" style="
+            position: relative;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+        ">
+  <defs>
+    <filter id="myFilter">
+      <g>
+        <femorphology operator="dilate" radius="4" in="SourceAlpha" result="SourceAlpha_EXTRUSION_10"></femorphology>
+        <feconvolvematrix order="3,3" divisor="1" kernelmatrix="
+                1 0 0
+                0 1 0
+                0 0 1
+                " in="SourceAlpha_EXTRUSION_10" result="SourceAlpha_EXTRUSION_20"></feconvolvematrix>
+      </g>
+      <g>
+        <feflood flood-color="#000000" result="000000"></feflood>
+        <fecomposite operator="in" in="000000" in2="BEVEL_10" result="BEVEL_20"></fecomposite>
+      </g>
+      <feoffset dx="4" dy="4" in="BEVEL_20" result="BEVEL_30"></feoffset>
+      <fecomposite operator="out" in="BEVEL_30" in2="SourceAlpha" result="BEVEL_40"></fecomposite>
+      <g>
+        <femorphology operator="dilate" radius="4" in="BEVEL_40" result="BEVEL_40_EXTRUSION_10"></femorphology>
+        <feconvolvematrix order="3,3" divisor="1" kernelmatrix="
+                1 0 0
+                0 1 0
+                0 0 1
+                " in="BEVEL_40_EXTRUSION_10" result="BEVEL_40_EXTRUSION_20"></feconvolvematrix>
+      </g>
+      <g>
+        <feflood flood-color="#FF14BD" result="FF14BD"></feflood>
+        <fecomposite operator="in" in="FF14BD" in2="SHADOW_10" result="SHADOW_20"></fecomposite>
+      </g>
+      <feoffset dx="4" dy="4" in="SHADOW_20" result="SHADOW_30"></feoffset>
+      <fecomposite operator="out" in="SHADOW_30" in2="BEVEL_40" result="SHADOW_40"></fecomposite>
+      <femerge result="FULL_EFFECT">
+        <femergenode in="SourceGraphic"></femergenode>
+        <femergenode in="BEVEL_40"></femergenode>
+        <femergenode in="SHADOW_30"></femergenode>
+      </femerge>
+    </filter>
+  </defs>
+  <text style="
+            font-size: 8rem;
+            display: absolute;
+            top: 0;
+            left: 0;
+            filter: url(#myFilter);
+        ">Paradise 11</text>
+</svg>
+</body>
+</html>
